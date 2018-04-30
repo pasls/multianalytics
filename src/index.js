@@ -69,4 +69,4 @@ const addCustomModule = function (name, module) {
 
 
 // Export module
-export default { install, addCustomModule }
+export default { init, addCustomModule }
