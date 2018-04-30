@@ -102,7 +102,7 @@ module.exports =
 
 	  // init Google Analytics
 	  // We create all the modules that app will use
-	  modulesEnabled = [];
+	  var modulesEnabled = [];
 	  for (var key in initConf.modules) {
 	    var module = void 0;
 	    switch (key) {

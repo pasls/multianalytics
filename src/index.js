@@ -20,7 +20,7 @@ const customModules = {}
 const init = function ( initConf = {}, mixin) {
   // init Google Analytics
   // We create all the modules that app will use
-  modulesEnabled = []
+  const modulesEnabled = []
   for (let key in initConf.modules) {
     let module
     switch (key) {
