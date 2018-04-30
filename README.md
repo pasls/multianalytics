@@ -1,7 +1,7 @@
 
-# Vue-multianalytics
+# Multianalytics
 
-A [VueJS](http://vuejs.org) multianalytics tool
+A multianalytics tool
 
 - [About](#about)
 - [Configuration](#configuration)
@@ -26,7 +26,7 @@ A [VueJS](http://vuejs.org) multianalytics tool
 
 ## About
 
-At [Glovo](https://glovoapp.com) we need to track a lot of events. And not in only one platform, but a few. That is why we needed **vue-multianalytics**, a simple plugin that allows you to track any event in multiple platforms at the same time.
+At [Glovo](https://glovoapp.com) we need to track a lot of events. And not in only one platform, but a few. That is why we needed **multianalytics**, a simple plugin that allows you to track any event in multiple platforms at the same time.
 
 This plugin has been inspired by the awesome library **[vue-ua](https://github.com/ScreamZ/vue-analytics)**, so a big thank you to it. If you want to just have Google Analytics, you should use _vue-ua_ instead of _vue-multianalytics_.
 

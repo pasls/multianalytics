@@ -17,10 +17,10 @@ const customModules = {}
  */
 
 
-const install = function (Vue, initConf = {}, mixin) {
+const init = function ( initConf = {}, mixin) {
   // init Google Analytics
   // We create all the modules that app will use
-  Vue.modulesEnabled = []
+  modulesEnabled = []
   for (let key in initConf.modules) {
     let module
     switch (key) {
@@ -47,67 +47,26 @@ const install = function (Vue, initConf = {}, mixin) {
         break;
     }
     if (module) {
-      Vue.modulesEnabled.push(module)
+      modulesEnabled.push(module)
     }
-  }
+  } 
 
   if (Object.keys(customModules).length > 0) {
     Object.values(customModules).forEach((module, index) => {
       let moduleInstance = new module()
       moduleInstance.init(initConf.modules[Object.keys(customModules)[index]])
-      Vue.modulesEnabled.push(moduleInstance)
+      modulesEnabled.push(moduleInstance)
     })
-  }
-  // Handle vue-router if defined
-  if (initConf.routing && initConf.routing.vueRouter) {
-    initVueRouterGuard(Vue, initConf.routing)
   }
 
   // Add to vue prototype and also from globals
-  const analyticsPlugin = new AnalyticsPlugin(Vue.modulesEnabled)
-  Vue.prototype.$multianalytics = Vue.prototype.$ma = Vue.ma = analyticsPlugin
-
-
-  // User can add its own implementation of an interface
-  if (mixin) {
-    Vue.prototype.$multianalyticsm =  Vue.prototype.$mam = Vue.mam =  mixin(analyticsPlugin)
-  }
-
+  return new AnalyticsPlugin(modulesEnabled)
 }
 
 const addCustomModule = function (name, module) {
   customModules[name] = module
 }
 
-/**
- * Init the router guard.
- *
- * @param {any} Vue - The Vue instance
- * @param {any} routing - an object with some properties to be used by the vueRouterGuard. Possible params are 'vueRouter', 'ignoredView', 'preferredProperty', 'ignoredModules'
- * @returns {string[]} The ignored routes names formalized.
- */
-const initVueRouterGuard = function (Vue, routing) {
-  // Flatten routes name
-  if (routing.ignoredViews) {
-    routing.ignoredViews = routing.ignoredViews.map(view => view.toLowerCase())
-  }
-
-  if (!routing.preferredProperty) {
-    routing.preferredProperty = 'path'
-  }
-
-
-  routing.vueRouter.afterEach(to => {
-    // Ignore some routes
-    if (routing.ignoredViews && routing.ignoredViews.indexOf(to[routing.preferredProperty].toLowerCase()) !== -1) {
-      return
-    }
-    // Dispatch vue event using meta analytics value if defined otherwise fallback to route name
-    Vue.ma.trackView({viewName: to.meta.analytics || to[routing.preferredProperty]}, routing.ignoredModules)
-  })
-
-  return routing.ignoredViews;
-}
 
 // Export module
 export default { install, addCustomModule }

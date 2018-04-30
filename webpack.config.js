@@ -3,8 +3,8 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    'vue-multianalytics': './src/index.js',
-    'vue-multianalytics.min': './src/index.js'
+    'multianalytics': './src/index.js',
+    'multianalytics.min': './src/index.js'
   },
   output: {
     path: "./dist",
