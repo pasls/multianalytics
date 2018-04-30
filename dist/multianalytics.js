@@ -150,7 +150,7 @@ module.exports =
 	};
 
 	// Export module
-	exports.default = { install: install, addCustomModule: addCustomModule };
+	exports.default = { init: init, addCustomModule: addCustomModule };
 
 /***/ }),
 /* 1 */
